@@ -3,7 +3,7 @@ Echo server and client using python socket
 
 # AIM:
 
-To develop a simple webserver to serve html programming pages.
+To develop an echo server and client using python socket
 
 ## DESIGN STEPS:
 
@@ -17,57 +17,58 @@ Implementation using Python code
 
 ### Step 3:
 
-Testing the server and client 
-
+Testing the server and client
 ## PROGRAM:
-
-# Server.py
 ```
+Client :
+
 import socket
-HOST = '127.0.0.1' 
-PORT = 65432 
+
+HOST = "127.0.0.1"
+PORT = 65432
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
-    print(f"Server started. Listening on {HOST}:{PORT}...")
+
+    print("Server is waiting for connection...")
+
     conn, addr = s.accept()
+
     with conn:
         print(f"Connected by {addr}")
+
         while True:
             data = conn.recv(1024)
+
             if not data:
                 break
+
+            print("Received:", data.decode())
+
             conn.sendall(data)
 
+Server :
 
-
-```
-# Client.py
-
-```
 import socket
-HOST = '127.0.0.1' 
+
+HOST = "127.0.0.1"
 PORT = 65432
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
-    while True:
-        message = input("Enter message (or 'exit' to quit): ")
-        if message.lower() == 'exit':
-            break
-        s.sendall(message.encode())
-        data = s.recv(1024)
-        print(f"Echo from server: {data.decode()}")
 
+    message = input("Enter message: ")
 
+    s.sendall(message.encode())
 
+    data = s.recv(1024)
+
+print("Server replied:", data.decode())
 ```
+
 ## OUTPUT:
-
-<img width="908" height="418" alt="image" src="https://github.com/user-attachments/assets/1e7f11da-215c-40bd-8418-83f4e66b0a8f" />
-
-
-<img width="996" height="455" alt="image" src="https://github.com/user-attachments/assets/9e9386d9-17c3-4f44-8b93-8f6c3fabeb50" />
-
+<img width="1920" height="1103" alt="ethical hacking" src="https://github.com/user-attachments/assets/2a13c3ca-ebef-447a-b674-71ed82d67357" />
 
 ## RESULT:
-The program is executed successfully
+The program is executed succesfully
